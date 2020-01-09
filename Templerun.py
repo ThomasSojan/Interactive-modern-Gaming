@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import wx
 import time
-from win32directx import PressKey, W,A,S,D , ReleaseKey,set_pos,SPACE
+from win32directx import PressKey, W,A,S,D , ReleaseKey
 
 
 
@@ -37,8 +37,7 @@ while True:
     cv2.line(img,(300,0),(300,600),blue,thickness=1)
     cv2.line(img,(400,0),(400,600),blue,thickness=1)
 
-
-
+ 
     #convert BGR to HSV
     imgHSV = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
     #create mask
@@ -66,14 +65,14 @@ while True:
             PressKey(D)
             time.sleep(0.025)
             ReleaseKey(D)   
-        if(cy1<100):
+        if(cy1<150):
+            PressKey(W)
+            time.sleep(0.025)
+            ReleaseKey(W)
+        if(cy1>350):
             PressKey(S)
-            time.sleep(0.05)
-            ReleaseKey(S)
-        if(cy1>400):
-            PressKey(SPACE)
-            time.sleep(0.05)
-            ReleaseKey(SPACE)          
+            time.sleep(0.025)
+            ReleaseKey(S)          
 
              
         
