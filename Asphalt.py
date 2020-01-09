@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import wx
 import time
-from win32directx import PressKey, W,A,S,D , ReleaseKey,set_pos
+from win32directx import PressKey, W,A,S,D , ReleaseKey,set_pos,SPACE
 
 
 
@@ -20,10 +20,9 @@ cam.set(4,camy)
 
 kernalOpen = np.ones((5,5))
 kernalClose = np.ones((20,20))
+blue = (255,0,0)
 
-mLocOld =np.array([0,0])
-mouseLoc = np.array([0,0])
-DampingFactor = 2 #should be greater than 1
+
 
 for i in list(range(4))[::-1]:
     print(i+1)
@@ -35,6 +34,11 @@ while True:
    # img = cv2.resize(img,()
     img = cv2.flip(img,1)
 
+    cv2.line(img,(300,0),(300,600),blue,thickness=1)
+    cv2.line(img,(400,0),(400,600),blue,thickness=1)
+
+
+aaa 
     #convert BGR to HSV
     imgHSV = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
     #create mask
@@ -54,14 +58,24 @@ while True:
         cy1=y1+h1//2
         cv2.circle(img,(cx1,cy1),2,(0,0,255),2)
         print(cy1)      
-        if(cy1<250):
+        if(cx1<300):
             PressKey(A)
-            time.sleep(0.05)
+            time.sleep(0.025)
             ReleaseKey(A)
-        if(cy1>300):
+        if(cx1>400):
             PressKey(D)
+            time.sleep(0.025)
+            ReleaseKey(D)   
+        if(cy1<100):
+            PressKey(S)
             time.sleep(0.05)
-            ReleaseKey(D)    
+            ReleaseKey(S)
+        if(cy1>400):
+            PressKey(SPACE)
+            time.sleep(0.05)
+            ReleaseKey(SPACE)          
+
+             
         
 
         
@@ -72,8 +86,8 @@ while True:
     
    
 
-    cv2.imshow("maskClose",maskClose)
-    cv2.imshow("maskOpen",maskOpen)
-    cv2.imshow("mask",mask)
+   # cv2.imshow("maskClose",maskClose)
+   # cv2.imshow("maskOpen",maskOpen)
+   # cv2.imshow("mask",mask)
     cv2.imshow("cam",img)
     cv2.waitKey(5)    
