@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+<title>SysInfo</title>
+<link rel = "stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+      <i class="fas fa-bars"></i>
+    </label>
+    <label class="logo">DesignX</label>
+    <ul>
+      <li><a  href="index.html">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a class="active" href="sysinfo.html">Services</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Feedback</a></li>
+    </ul>
+  </nav>
+  <div class = "container">
+       
+    <h1>System Info</h1>
+     <div id ="output"></div>
+
+  </div>
+</body>
+
+<script>  
+  console.log(process);
+  var canvas = document.createElement('canvas');
+  var gl;
+  var debugInfo;
+  var vendor;
+  var renderer;
+
+  try {
+    gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  } catch (e) {
+  }
+
+  if (gl) {
+    debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+    renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+  }
+  let output = `
+  
+  <h2 class = "page-header">System Spec</h2>
+  <ul class = "list-group">
+     <li class = "list-group-item">System Architecture: ${process.arch}</li>
+     <li class = "list-group-item">Processor Identifier: ${process.env.PROCESSOR_IDENTIFIER}</li>
+     <li class = "list-group-item">Platform: ${process.platform}</li>
+
+    
+  </ul>
+  <h2 class = "page-header">GPU Info</h2>
+  <ul class = "list-group">
+     <li class = "list-group-item">DebugInfo: ${gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL)}</li>
+     <li class = "list-group-item">Vendor: ${gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL)}</li>
+     <li class = "list-group-item">Renderer: ${gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)}</li>
+
+    
+  </ul>
+
+  <h2 class = "page-header">Memory Info</h2>
+  <ul class = "list-group">
+     <li class = "list-group-item">Total: ${process.getSystemMemoryInfo().total}</li>
+     <li class = "list-group-item">Free: ${process.getSystemMemoryInfo().free}</li>
+     <li class = "list-group-item">Swap Total: ${process.getSystemMemoryInfo().swapTotal}</li>
+     <li class = "list-group-item">Swap free: ${process.getSystemMemoryInfo().swapFree}</li>
+
+
+    
+  </ul>
+
+  
+
+
+  <h2 class = "page-header">App Version Data</h2>
+  <ul class = "list-group">
+     <li class = "list-group-item">Node: ${process.versions.node}</li>
+     <li class = "list-group-item">Electron: ${process.versions.electron}</li>
+     <li class = "list-group-item">Python: 3.6.3</li>
+     <li class = "list-group-item">Tensorflow: 2.0.0</li>
+     <li class = "list-group-item">Keras: 2.1.1 </li>
+     <li class = "list-group-item">OpenCV: 4.1.2.30 </li>
+  </ul>
+  `;
+  document.getElementById('output').innerHTML = output;
+
+</script>
+
+
+</html>

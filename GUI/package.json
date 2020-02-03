@@ -1,0 +1,14 @@
+{
+  "name": "img_gui",
+  "version": "1.0.0",
+  "description": "simple gui for finalpro",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "TMS",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^7.1.11"
+  }
+}
