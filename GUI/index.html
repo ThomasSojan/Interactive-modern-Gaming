@@ -2,29 +2,111 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>SysInfo</title>
+    <title>Evolution Games</title>
     <link rel = "stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css">
+
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    </head>
+  </head>
   <body>
-    <nav>
-      <input type="checkbox" id="check">
-      <label for="check" class="checkbtn">
-        <i class="fas fa-bars"></i>
-      </label>
-      <label class="logo">DesignX</label>
-      <ul>
-        <li><a class="active" href="index.html">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="sysinfo.html">Services</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Feedback</a></li>
-      </ul>
-    </nav>
-    <section></section>
+    
+
+
+
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar">
+      <header>My Menu</header>
+      <a href="#" class="active">
+        <i class="fas fa-qrcode"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#">
+        <i class="fas fa-link"></i>
+        <span>Shortcuts</span>
+      </a>
+      <a href="#">
+        <i class="fas fa-stream"></i>
+        <span>Overview</span>
+      </a>
+      <a href="#">
+         <i class="fas fa-calendar"></i>
+        <span>Events</span>
+      </a>
+      <a href="sysinfo.html">
+        <i class="far fa-question-circle"></i>
+        <span>About</span>
+      </a>
+      <a href="#">
+        <i class="fas fa-sliders-h"></i>
+        <span>Services</span>
+      </a>
+      <a href="#">
+        <i class="far fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </div>
+    <div class = "container">
+       
+      <h1 align ="center" style=" font-size: 38px;" ><img src="images/icon.png" style="width:50px;height:50px;"> Evolution Games</h1>
+      <div class="container">
+        <div class="jumbotron">
+          <h1>Powered by Python NodeJS</h1>
+          <p>Rendered by Electron</p>
+        </div>
+        <br>
+
+       <section>
+         <div class = 'card-deck'>
+        <div class="card" style="width: 5rem;">
+          <img src="images/temple.png"  class="card-img-top"  alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Templerun</h5>
+            <p class="card-text">Adventure</p>
+            <button id = 'add' class= "btn btn-warning" onclick="" >RUN</button>
+          </div>
+        </div>
+
+        <div class="card" style="width: 5rem;">
+          <img src="images/asphalt.png"  class="card-img-top"  alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Asphalt 9</h5>
+            <p class="card-text">Racing </p>
+            <button id = 'add' class= "btn btn-warning" onclick="" >RUN</button>
+          </div>
+        </div>
+
+        <div class="card" style="width: 5rem;">
+          <img src="images/gta.jpg"  class="card-img-top"  alt="...">
+          <div class="card-body">
+            <h5 class="card-title">GTA San Andreas</h5>
+            <p class="card-text">Action </p>
+            <button id = 'add' class= "btn btn-warning" onclick="" >RUN</button>
+          </div>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+          <img src="images/icon.png"  class="card-img-top"  alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">content </p>
+            <button id = 'add' class= "btn btn-warning" onclick="" >RUN</button>
+          </div>
+        </div>
+         </div>
+      </section>
+
+  
+    
+    
+    
+    </div>
+
   </body>
 </html>
