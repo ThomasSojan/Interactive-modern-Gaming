@@ -6,13 +6,14 @@ const port = 8080;
 
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/indexSensor.html');
+  res.sendFile(__dirname + '/Client.html');
 });
 
 io.on('connection', function(socket){
     console.log('a user connected');
     socket.on('message', function (data) {
     console.log(data);
+    io.sockets.emit('new message',data);
     });
     socket.on('disconnect', function(){
       console.log('user disconnected');
