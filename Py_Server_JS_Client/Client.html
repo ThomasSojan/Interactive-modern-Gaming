@@ -25,13 +25,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
         <script>
 
-const socket = io("http://192.168.0.5:8080");
+const socket = io("http://192.168.0.5:5000");
 if (navigator.appVersion.indexOf("Win") != -1){
         // socket.on('new message',function(data){
         //     console.log(data[0]);
         // });
-            var alpha;
-            function getData() {
+        var alpha;
+            function getAlpha() {
                 
                 socket.on('new message',function(data){
                     alpha = data[0];
@@ -40,15 +40,49 @@ if (navigator.appVersion.indexOf("Win") != -1){
                 return alpha;
                 
         }
-          
-            Plotly.plot('chart',[{
-                y:[getData()],
-                type:'line'
+
+         var beta;
+            function getBeta() {
+                
+                socket.on('new message',function(data){
+                    beta = data[1];
+                    
+                });
+                return beta;
+                
+        }
+
+         var gamma;
+            function getGamma() {
+                
+                socket.on('new message',function(data){
+                    gamma = data[2];
+                    
+                });
+                return gamma;
+                
+        } 
+            Plotly.newPlot('chart',[{
+                y:[getAlpha()],
+                mode:'lines',
+                name:'Alpha',
+                line: {color: '#0829ff'}
+            },{
+                y:[getBeta()],
+                mode:'lines',
+                name:'Beta',
+                line: {color: '#038a4d'},
+
+              },{
+                y:[getGamma()],
+                mode:'lines',
+                name:'Gamma',
+                line: {color: '#ed1111'}
             }]);
-            
+              
             var cnt = 0;
             setInterval(function(){
-                Plotly.extendTraces('chart',{ y:[[getData()]]}, [0]);
+                Plotly.extendTraces('chart',{ y:[[getAlpha()],[getBeta()],[getGamma()]]}, [0,1,2]);
                 cnt++;
                 if(cnt > 500) {
                     Plotly.relayout('chart',{
@@ -57,7 +91,7 @@ if (navigator.appVersion.indexOf("Win") != -1){
                         }
                     });
                 }
-            },15);
+            },15);    
 
         }
 else{
