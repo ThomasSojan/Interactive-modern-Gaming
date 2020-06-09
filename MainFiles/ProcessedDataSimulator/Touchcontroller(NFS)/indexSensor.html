@@ -1,0 +1,198 @@
+<!-- index.html -->
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+       
+      * {
+
+box-sizing:border-box;
+margin:0;
+padding:0;
+
+}
+
+html {
+
+height:100%;
+width:100%;
+
+}
+
+body {
+
+align-content:space-around;
+background-color:#ffffff;
+color:#202830;
+display:grid;
+justify-content:center;
+min-height:100%;
+text-align:center;
+width:100%;
+
+}
+
+canvas {
+
+background-color:#ffffff;
+justify-self:center;
+
+}
+
+
+.brake{
+  position: absolute;
+  left: 200px;
+  top:250px;
+}
+
+
+.accelerator{
+  position: absolute;
+  left: 20px;
+  top:250px;
+  height: 80px;
+  width: 80px;
+  background-color: #D4D4D4;
+  border-radius: 70%;
+}
+.nitro{
+  position: absolute;
+  left: 530px;
+  top:250px;
+}
+.handbrake{
+  position: absolute;
+  left: 700px;
+  top:250px;
+}
+
+    </style>
+
+  
+  </head>
+  <body>
+
+
+    <h1>INTERACTIVE MODERN GAMING</h1>
+        
+   
+
+    <div id ="output">
+    
+      <div class = "x"></div>
+      <div class = "y"></div>
+      <div class = "z"></div>
+
+    </div>
+    
+    
+      <div class = "brake" ontouchstart = "brakePress()" ontouchend = "brakeRelease()" >
+        <img src="https://cdn0.iconfinder.com/data/icons/car-circle/512/43-512.png"  alt="brake"style="width:100px;height:100px";>
+        </div>
+       <!-- <div class = "accelerator" ontouchstart = "aimAction()" >
+          <img src="https://www.wheelchairvans.ca/wp-content/uploads/2018/06/Gas-pedal-icon.png"  alt="accelerator"style="width:100px;height:100px";>
+          </div> -->
+        <div class = "accelerator" ontouchstart = "accelerationPress()" ontouchend = "accelerationRelease()"></div>  
+          
+        
+        <div class="nitro" ontouchstart = "nitroPress()" ontouchend = "nitroRelease()">
+          <img src="https://getdrawings.com/free-icon/nitro-icon-54.png" alt="nitro"style="width:100px;height:100px;">
+          </div>
+          <div class="handbrake" ontouchstart = "handbrakePress()" ontouchend = "handbrakeRelease()">
+            <img src="https://cdn3.iconfinder.com/data/icons/car-indicator-lights-2/512/Warning_Light-color-42-512.png" alt="handbrake"style="width:100px;height:100px;">
+            </div>  
+    
+       
+    
+    
+    
+   
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script>
+      aimCount = 0;
+      crouchCount = 0;
+      const socket = io("http://192.168.0.6:8080");
+      dct2 = {type : "eventHandler",
+              accelerator:false,
+              brake:false,
+              nitro: false,
+              handbrake:false
+              
+            }  
+
+     
+      function handleOrientation(event) {
+var dct = {};
+dct.type = "deviceOrientation";
+var x = Math.floor(event.alpha)
+dct.alpha = x;
+var y = Math.floor(event.beta);  // In degree in the range [-180,180]
+dct.beta = y;
+var z = Math.floor(event.gamma);
+dct.gamma = z  // In degree in the range [-90,90]
+var out = document.getElementById("output");
+out.querySelector('.x').innerHTML =  "Alpha : " + x + "\n";
+out.querySelector('.y').innerHTML =  "Beta : " + y + "\n";
+out.querySelector('.z').innerHTML =  "Gamma : " + z + "\n";
+
+
+
+
+socket.emit("message", dct);
+
+
+}
+
+function accelerationPress() {
+        console.log("forward");
+        dct2.accelerator = true;
+        socket.emit("message",dct2);
+      }
+      function accelerationRelease() {
+        console.log("stop forward");
+        dct2.accelerator = false;
+        socket.emit("message",dct2);
+      }
+      function nitroPress() {
+        console.log("nitro");
+        dct2.nitro = true;
+        socket.emit("message",dct2);
+      }
+      function nitroRelease() {
+        console.log("stop nitro");
+        dct2.nitro = false;
+        socket.emit("message",dct2);
+      }
+      function handbrakePress() {
+        console.log("handbrake");
+        dct2.handbrake = true;
+        socket.emit("message",dct2);
+      }
+      function handbrakeRelease() {
+        console.log("stop handbrake");
+        dct2.handbrake = false;
+        socket.emit("message",dct2);
+      }
+      function brakePress() {
+        console.log("brake");
+        dct2.brake = true
+        socket.emit("message",dct2);
+      }
+      function brakeRelease() {
+        console.log("stop brake");
+        dct2.brake = false;
+        socket.emit("message",dct2);
+      }
+      
+
+window.addEventListener('deviceorientation', handleOrientation);
+
+    </script>
+  </body>
+</html>

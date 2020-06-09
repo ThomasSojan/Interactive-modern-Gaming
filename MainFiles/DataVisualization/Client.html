@@ -1,0 +1,132 @@
+<html>
+    <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
+    
+    <div class="wrapper">
+
+        <div id ="output">
+    
+            <div class = "x"></div>
+            <div class = "y"></div>
+            <div class = "z"></div>
+          
+          
+          
+          
+          
+          </div>
+        
+        
+        <div id="chart"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+        <script>
+
+const socket = io("http://192.168.0.6:8000");
+if (navigator.appVersion.indexOf("Win") != -1){
+        // socket.on('new message',function(data){
+        //     console.log(data[0]);
+        // });
+        var alpha;
+            function getAlpha() {
+                
+                socket.on('new message',function(data){
+                    alpha = data[0];
+                    
+                });
+                return alpha;
+                
+        }
+
+         var beta;
+            function getBeta() {
+                
+                socket.on('new message',function(data){
+                    beta = data[1];
+                    
+                });
+                return beta;
+                
+        }
+
+         var gamma;
+            function getGamma() {
+                
+                socket.on('new message',function(data){
+                    gamma = data[2];
+                    
+                });
+                return gamma;
+                
+        } 
+            Plotly.newPlot('chart',[{
+                y:[getAlpha()],
+                mode:'lines',
+                name:'Alpha',
+                line: {color: '#0829ff'}
+            },{
+                y:[getBeta()],
+                mode:'lines',
+                name:'Beta',
+                line: {color: '#038a4d'},
+
+              },{
+                y:[getGamma()],
+                mode:'lines',
+                name:'Gamma',
+                line: {color: '#ed1111'}
+            }]);
+              
+            var cnt = 0;
+            setInterval(function(){
+                Plotly.extendTraces('chart',{ y:[[getAlpha()],[getBeta()],[getGamma()]]}, [0,1,2]);
+                cnt++;
+                if(cnt > 500) {
+                    Plotly.relayout('chart',{
+                        xaxis: {
+                            range: [cnt-500,cnt]
+                        }
+                    });
+                }
+            },15);    
+
+        }
+else{
+          
+    
+    function handleOrientation(event) {
+                var value = [];
+                var x = Math.floor(event.alpha)
+                value.push(x);
+                var y = Math.floor(event.beta);  // In degree in the range [-180,180]
+                value.push(y);
+                var z = Math.floor(event.gamma);
+                value.push(z); // In degree in the range [-90,90]
+                var out = document.getElementById("output");
+                out.querySelector('.x').innerHTML =  "Alpha : " + x + "\n";
+                out.querySelector('.y').innerHTML =  "Beta : " + y + "\n";
+                out.querySelector('.z').innerHTML =  "Gamma : " + z + "\n";
+
+                socket.emit('message', value);
+                console.log(value);
+
+    }
+
+    window.addEventListener('deviceorientation', handleOrientation);
+
+}
+
+
+
+
+
+
+
+
+        </script>
+    </div>
+    </body>
+</html>

@@ -1,0 +1,63 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+
+
+    <h1>INTERACTIVE MODERN GAMING</h1>
+        
+   
+
+    <div id ="output">
+    
+      <div class = "x"></div>
+      <div class = "y"></div>
+      <div class = "z"></div>
+    
+    
+    
+    
+    
+    </div>
+    <button onClick="sendMsg()">Hit Me</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script>
+      const socket = io("http://192.168.0.6:8080");
+
+      function sendMsg() {
+        socket.emit("message", "HELLO WORLD");
+        console.log("HIT");
+      }
+
+
+      function handleOrientation(event) {
+var value = [];
+var x = Math.floor(event.alpha)
+value.push(x);
+var y = Math.floor(event.beta);  // In degree in the range [-180,180]
+value.push(y);
+var z = Math.floor(event.gamma);
+value.push(z); // In degree in the range [-90,90]
+var out = document.getElementById("output");
+out.querySelector('.x').innerHTML =  "Alpha : " + x + "\n";
+out.querySelector('.y').innerHTML =  "Beta : " + y + "\n";
+out.querySelector('.z').innerHTML =  "Gamma : " + z + "\n";
+
+
+
+socket.emit("message", value);
+console.log("HIT");
+
+}
+
+window.addEventListener('deviceorientation', handleOrientation);
+    </script>
+  </body>
+</html>

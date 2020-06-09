@@ -1,0 +1,281 @@
+<!-- index.html -->
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+       
+      * {
+
+box-sizing:border-box;
+margin:0;
+padding:0;
+
+}
+
+html {
+
+height:100%;
+width:100%;
+
+}
+
+body {
+
+align-content:space-around;
+background-color:#ffffff;
+color:#202830;
+display:grid;
+justify-content:center;
+min-height:100%;
+text-align:center;
+width:100%;
+
+}
+
+canvas {
+
+background-color:#ffffff;
+justify-self:center;
+
+}
+.triangle-up {
+position: absolute;
+left:80;
+top:190;
+width: 0;
+height: 0;
+border-left: 25px solid transparent;
+border-right: 25px solid transparent;
+border-bottom: 25px solid #202830;
+}
+.triangle-left {
+position: absolute;
+left: 32px;
+top: 219px;
+width: 0;
+height: 0;
+border-top: 20px solid transparent;
+border-right: 36px solid #202830;
+border-bottom: 20px solid transparent;
+}
+.triangle-right {
+  position: absolute;
+  left: 142px;
+  top: 219px;
+	width: 0;
+	height: 0;
+	border-top: 20px solid transparent;
+	border-left: 36px solid #202830;
+	border-bottom: 20px solid transparent;
+}
+.triangle-down {
+position: absolute;
+left: 80px;
+top: 259px;
+width: 0;
+height: 0;
+border-left: 25px solid transparent;
+border-right: 25px solid transparent;
+border-top: 25px solid #202830;
+}
+
+.aim{
+  position: absolute;
+  left: 500px;
+  top:100px;
+}
+.fire{
+  position: absolute;
+  left: 60px;
+  top:25px;
+  height: 80px;
+  width: 80px;
+  background-color: #D4D4D4;
+  border-radius: 70%;
+}
+.crouch{
+  position: absolute;
+  left: 600px;
+  top:100px;
+}
+.jump{
+  position: absolute;
+  left: 700px;
+  top:100px;
+}
+
+    </style>
+
+  
+  </head>
+  <body>
+
+
+    <h1>INTERACTIVE MODERN GAMING</h1>
+        
+   
+
+    <div id ="output">
+    
+      <div class = "x"></div>
+      <div class = "y"></div>
+      <div class = "z"></div>
+
+    </div>
+    
+    
+      <div class = "aim" ontouchstart = "aimAction()" >
+        <img src="data:image/png;base64,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" alt="aim"style="width:60px;height:60px;">
+        </div>
+        <div class="fire" ontouchstart="firePress()" ontouchend="fireRelease()"></div>
+        <div class="crouch" ontouchstart = "crouchAction()">
+          <img src="https://pngimg.com/uploads/pubg/pubg_PNG62.png" alt="aim"style="width:50px;height:50px;">
+          </div>
+          <div class="jump" ontouchstart = "jumpPress()" ontouchend = "jumpRelease()">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQL37kh4yTVIX13uI0_0UEgPtR06Zjgh9Cu6KjM48IHp9D2myI8&usqp=CAU" alt="aim"style="width:30px;height:50px;">
+            </div>  
+    
+        <div class="triangle-up" ontouchstart="forwardPress()" ontouchend="forwardRelease()"></div>
+        <div class="triangle-left" ontouchstart="leftPress()" ontouchend="leftRelease()"></div>
+        <div class="triangle-down" ontouchstart="backwardPress()" ontouchend = "backwardRelease()"></div>
+        <div class="triangle-right" ontouchstart="rightPress()" ontouchend = "rightRelease()"></div>
+    
+    
+    
+   
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script>
+      aimCount = 0;
+      crouchCount = 0;
+      const socket = io("http://192.168.0.6:8080");
+      dct2 = {type : "eventHandler",
+              forward : false,
+              backward : false,
+              left:false,
+              right : false,
+              jump : false,
+              fire : false,
+              aim : false,
+              crouch : false
+            }  
+
+     
+      function handleOrientation(event) {
+var dct = {};
+dct.type = "deviceOrientation";
+var x = Math.floor(event.alpha)
+dct.alpha = x;
+var y = Math.floor(event.beta);  // In degree in the range [-180,180]
+dct.beta = y;
+var z = Math.floor(event.gamma);
+dct.gamma = z  // In degree in the range [-90,90]
+var out = document.getElementById("output");
+out.querySelector('.x').innerHTML =  "Alpha : " + x + "\n";
+out.querySelector('.y').innerHTML =  "Beta : " + y + "\n";
+out.querySelector('.z').innerHTML =  "Gamma : " + z + "\n";
+
+
+
+
+socket.emit("message", dct);
+
+
+}
+
+function forwardPress() {
+        console.log("forward");
+        dct2.forward = true;
+        socket.emit("message",dct2);
+      }
+      function forwardRelease() {
+        console.log("stop forward");
+        dct2.forward = false;
+        socket.emit("message",dct2);
+      }
+      function leftPress() {
+        console.log("left");
+        dct2.left = true;
+        socket.emit("message",dct2);
+      }
+      function leftRelease() {
+        console.log("stop left");
+        dct2.left = false;
+        socket.emit("message",dct2);
+      }
+      function backwardPress() {
+        console.log("backward");
+        dct2.backward = true;
+        socket.emit("message",dct2);
+      }
+      function backwardRelease() {
+        console.log("stop backward");
+        dct2.backward = false;
+        socket.emit("message",dct2);
+      }
+      function rightPress() {
+        console.log("right");
+        dct2.right = true
+        socket.emit("message",dct2);
+      }
+      function rightRelease() {
+        console.log("stop right");
+        dct2.right = false;
+        socket.emit("message",dct2);
+      }
+      function firePress() {
+        console.log("firing");
+        dct2.fire = true;
+        socket.emit("message",dct2);
+      }
+      function fireRelease() {
+        console.log("stop firing");
+        dct2.fire = false;
+        socket.emit("message",dct2);
+      }
+      function crouchAction() {
+        if (crouchCount % 2 == 0){
+        console.log("crouch");
+        dct2.crouch = true;
+        socket.emit("message",dct2);
+      }
+      else{
+        console.log("stop crouch");
+        dct2.crouch = false;
+        socket.emit("message",dct2);
+      }
+      crouchCount = crouchCount + 1;
+      }
+      function aimAction() {
+        if (aimCount % 2 == 0){
+        console.log("aiming");
+        dct2.aim = true;
+        socket.emit("message",dct2);
+      }
+      else{
+        console.log("stop aiming");
+        dct2.aim = false;
+        socket.emit("message",dct2);
+      }
+      aimCount = aimCount + 1;
+      }
+      function jumpPress() {
+       console.log("jump");
+       dct2.jump = true;
+       socket.emit("message",dct2);
+      }
+      function jumpRelease() {
+       console.log("stop jumping");
+       dct2.jump = false;
+       socket.emit("message",dct2);
+      }
+
+window.addEventListener('deviceorientation', handleOrientation);
+
+    </script>
+  </body>
+</html>
